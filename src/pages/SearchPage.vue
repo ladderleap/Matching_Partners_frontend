@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
+import {ref, watchEffect} from 'vue';
 import {useRouter} from "vue-router";
 
 const router = useRouter()
@@ -50,8 +50,8 @@ const originTagList = [{
       {text: '大二', id: '大二'},
       {text: '大3', id: '大3'},
       {text: '大4', id: '大4'},
-      {text: '大5', id: '大5aaaaaaa'},
-      {text: '大6', id: '大6aaaaaaa'},
+      {text: '大5', id: '大5'},
+      {text: '大6', id: '大6'},
     ],
   },
 ]
@@ -99,7 +99,10 @@ const doSearchResult = () => {
     }
   })
 }
-
+watchEffect(()=>{
+  console.log(activeIds.value)
+  console.log(activeIndex.value)
+})
 </script>
 
 <style scoped>

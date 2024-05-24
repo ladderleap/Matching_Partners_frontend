@@ -3,7 +3,7 @@ import axios, {AxiosInstance} from "axios";
 // const isDev = process.env.NODE_ENV === 'development';
 
 const myAxios: AxiosInstance = axios.create({
-    baseURL:  'http://localhost:8080/api',
+    baseURL:  'http://60.205.115.71:8080/api',
 });
 myAxios.defaults.withCredentials = true; // 配置为true
 

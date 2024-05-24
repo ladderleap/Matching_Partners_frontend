@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import {TeamType} from "../models/team";
 import {teamStatusEnum} from "../constants/team";
-import ikun from '../assets/ikun.png';
+import ikun from '../assets/team.png';
 import myAxios from "../plugins/myAxios";
 import {Dialog, Toast} from "vant";
 import {onMounted, ref} from "vue";
