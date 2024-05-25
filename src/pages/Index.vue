@@ -1,7 +1,6 @@
 <template>
-  <van-cell center title="心动模式" flo>
+  <van-cell center title="心动模式">
     <template #right-icon>
-      <span style="margin-right: 100px;">当前数据库总用户总量:{{userCount}}</span>
       <van-switch v-model="isMatchMod"/>
     </template>
 
@@ -17,6 +16,7 @@ import {useRoute} from "vue-router";
 import myAxios from "../plugins/myAxios";
 import {Toast} from "vant";
 import UserCardList from "../components/UserCardList.vue";
+
 const route = useRoute();
 const {tags} = route.query;
 
@@ -24,7 +24,7 @@ const userList = ref<any[]>([]);
 const isMatchMod = ref<boolean>(false);
 const loading = ref(true);
 const userCount = ref(0);
-let skeletonItems :any[]= [];
+let skeletonItems: any[] = [];
 
 const loadData = async () => {
   let userListData;
@@ -33,16 +33,23 @@ const loadData = async () => {
     skeletonItems.length = 20;
     userList.value = [...skeletonItems];
     console.log("match执行了")
-    userListData =  await myAxios.get('/user/match', {
+    userListData = await myAxios.get('/user/match', {
       params: {
         num: skeletonItems.length
       }
     })
         .then(function (response) {
           console.log('/user/search/tags succeed', response);
-          Toast.success('请求成功');
-          console.log("userdataRunning")
-          return response.data;
+          console.log("response.data.code:",typeof response.code)
+          if(response.code == 40000){
+            Toast.success('无法匹配,您的标签为空');
+            skeletonItems.length = 0;
+            userList.value = [...skeletonItems];
+          }else{
+            Toast.success('请求成功');
+            console.log("userdataRunning")
+            return response.data;
+          }
         })
         .catch(function (error) {
           console.error('/user/search/tags error', error);
@@ -60,9 +67,9 @@ const loadData = async () => {
     })
         .then(function (response) {
           console.log('/user/search/tags succeed', response);
-          Toast.success('请求成功');
-          userCount.value = response.data.total;
-          return response.data.pageResult.records;
+            Toast.success('请求成功');
+            userCount.value = response.data.total;
+            return response.data.pageResult.records;
         })
         .catch(function (error) {
           console.error('/user/search/tags error', error);
@@ -70,7 +77,7 @@ const loadData = async () => {
         })
 
   }
-
+  console.log("userListData:",userListData)
   if (userListData) {
     console.log("父组件遍历数据进行赋值操作")
     userListData.forEach(user => {
@@ -88,6 +95,8 @@ watchEffect(() => {
   console.log("watchEffect");
   loadData();
 });
+
+
 
 </script>
 

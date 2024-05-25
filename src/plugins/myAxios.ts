@@ -1,9 +1,9 @@
 import axios, {AxiosInstance} from "axios";
-
+import { myAddress } from './myAddress';
 // const isDev = process.env.NODE_ENV === 'development';
-
+const baseURL = `http://${myAddress}:8080/api`;
 const myAxios: AxiosInstance = axios.create({
-    baseURL:  'http://60.205.115.71:8080/api',
+    baseURL:  baseURL,
 });
 myAxios.defaults.withCredentials = true; // 配置为true
 

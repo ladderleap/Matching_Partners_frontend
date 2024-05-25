@@ -1,6 +1,5 @@
 <template>
-
-  <div class="container">
+<div class="container">
   <van-row gutter="16" style="padding: 0 16px">
     <van-col v-for="tag in tags">
       <van-tag closeable size="small" type="primary" @close="doClose(tag)">
@@ -17,22 +16,29 @@
         label="标签"
         placeholder="请输入想要添加的标签"
     >
-      <template #button>
-        <van-button size="small" type="primary" @click="addTag" style="margin-right: 20px">添加标签</van-button>
-        <van-button size="small" type="primary" @click="saveTags">保存标签</van-button>
-      </template>
+<!--      <template #button>-->
+<!--        <van-button size="small" type="primary" @click="addTag" style="margin-right: 20px">添加标签</van-button>-->
+<!--        <van-button size="small" type="primary" @click="saveTags">保存标签</van-button>-->
+<!--      </template>-->
     </van-field>
   </van-cell-group>
-    </div>
+  <div class="button">
+    <van-button size="small" type="primary" @click="addTag" style="margin-right: 20px">添加标签</van-button>
+    <van-button size="small" type="primary" @click="saveTags">保存标签</van-button>
+  </div>
+</div>
 </template>
 <script setup lang="ts">
 import {onMounted, ref, watchEffect} from "vue";
 import myAxios from "../plugins/myAxios";
 import {Toast} from "vant";
+import '@vant/touch-emulator';
 
-const tag = ref();
-const tags = ref();
 
+const tag = ref('');
+const tags = ref<string[]>([]);
+const sms = ref("");
+const value2 = ref('123');
 const getTagList = async () => {
   const res = await myAxios.get("/user/tags", {});
   console.log(res)
@@ -89,5 +95,11 @@ watchEffect(()=>{
   max-width: 1200px; /* 版心的最大宽度 */
   margin: 0 auto; /* 居中对齐 */
   padding: 16px; /* 内边距，可以根据需要调整 */
+}
+.button{
+  display: flex;
+  flex-direction: row; /* 水平排列子元素 */
+  justify-content: space-evenly; /* 子元素之间的间距平均分布 */
+  align-items: center; /* 垂直方向居中对齐 */
 }
 </style>
