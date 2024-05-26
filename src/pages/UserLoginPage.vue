@@ -25,6 +25,7 @@
         注册
       </van-button>
     </div>
+    <div style="text-align: center">演示账号:admin 密码:adminadmin</div>
   </van-form>
 </template>
 
@@ -52,7 +53,8 @@ const onSubmit = async () => {
     const redirectUrl = route.query?.redirect as string ?? '/';
     window.location.href = redirectUrl;
   } else {
-    Toast.fail('登录失败');
+
+    Toast.fail('登录失败,账号或密码不正确');
   }
 };
 

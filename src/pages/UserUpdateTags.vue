@@ -60,6 +60,7 @@ const addTag = ()=> {
   if (tag.value.trim()) {
     tags.value.push(tag.value.trim());
     Toast.success('标签添加成功');
+    console.log(tags.value)
     tag.value = ''; // 清空输入框
   } else {
     Toast.fail('标签内容不能为空');

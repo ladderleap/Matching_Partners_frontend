@@ -1,11 +1,15 @@
 <template>
-  <van-cell center title="心动模式">
+  <van-cell center>
+    <template #title style="position: absolute">
+      <span style="margin-right: 40px">心动模式</span>
+      <span class="prompt">鼠标悬停此处查看提示<van-icon name="fail" /></span>
+      <span class="content">开启该模式会根据已绑定的标签进行最佳匹配</span>
+    </template>
     <template #right-icon>
+      <span style="margin-right: 50px">当前用户总数:{{userCount}}</span>
       <van-switch v-model="isMatchMod"/>
     </template>
-
   </van-cell>
-
   <user-card-list :user-list="userList" :loading="loading"/>
   <van-empty v-if="!userList || userList.length < 1" description="数据为空"/>
 </template>
@@ -19,7 +23,6 @@ import UserCardList from "../components/UserCardList.vue";
 
 const route = useRoute();
 const {tags} = route.query;
-
 const userList = ref<any[]>([]);
 const isMatchMod = ref<boolean>(false);
 const loading = ref(true);
@@ -101,5 +104,20 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-
+  .prompt{
+    color: red;
+    cursor: pointer;
+  }
+  .prompt:hover + .content {
+    opacity: 1; /* 鼠标悬停时设置为不透明 */
+    visibility: visible; /* 鼠标悬停时设置为可见 */
+  }
+  .content {
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+    opacity: 0; /* 初始状态为完全透明 */
+    visibility: hidden; /* 初始状态为不可见 */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* 过渡效果 */
+  }
 </style>

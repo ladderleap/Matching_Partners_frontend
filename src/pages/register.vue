@@ -81,7 +81,7 @@ const loginUser = ref({
   userAccount: "",
   userPassword: "",
   checkPassword:"",
-  gender:"",
+  gender:"0",
   phone:"",
   email:"",
 });
